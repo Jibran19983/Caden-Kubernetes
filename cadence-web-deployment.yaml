@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cadence-web
+  name: cadence-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cadence-web
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: cadence-web
+    spec:
+      containers:
+        - env:
+            - name: CADENCE_TCHANNEL_PEERS
+              value: cadence:7933
+          image: ubercadence/web:latest
+          name: cadence-web
+          ports:
+            - containerPort: 8088
+      restartPolicy: Always
